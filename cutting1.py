@@ -204,28 +204,67 @@ def cuenta_casas(lista):
 def elegir_patron():
     pass
 
+def desrelajar(s, B, escuadrias, new_rolls):
+    # escuadrias = 0
+    rolls, merma = solveCuttingStock(s,B)
+    patron = rolls.pop(0)
+    for trozo in patron:
+        if trozo in s:
+            s.remove(trozo)
+            if trozo in new_rolls:
+                new_rolls[trozo] += 1
+            else:
+                new_rolls[trozo] = 1
+        else:
+            escuadrias, new_rolls = desrelajar(s,B,escuadrias, new_rolls)
+    escuadrias += 1
+    while s:
+        rolls, merma = solveCuttingStock(s,B)
+        patron = rolls.pop(0)
+        print(f"la lista de restantes es {s} \ny el patron es {patron}")
+        for trozo in patron:
+            print(trozo)
+            if trozo in s:
+                s.remove(trozo)
+                if trozo in new_rolls:
+                    new_rolls[trozo] += 1
+                else:
+                    new_rolls[trozo] = 1
+            else:
+                escuadrias, new_rolls = desrelajar(s,B,escuadrias, new_rolls)
+        escuadrias += 1
+    return escuadrias, new_rolls
+
+
 if __name__ == "__main__":
 
     cortes_listos = []
     dic = {}
     casas = 1
+
+    new_rolls = {}
+    escuadrias = 0
+
     s,B = CuttingStockExample1(casas)
-    
-    print("\n\n\nCutting stock problem:")
-    rolls, merma = solveCuttingStock(s,B)
-    largo_total = rolls * B
+    escuadrias, new_rolls = desrelajar(s,B, escuadrias, new_rolls)
+    print(f"las escuadrias son: {escuadrias}")
+
+    print(f"el diccionario es: {new_rolls}")
+    # print("\n\n\nCutting stock problem:")
+    # rolls, merma = solveCuttingStock(s,B)
+    # largo_total = rolls * B
 
     # print(rolls)
 
-    print(len(rolls), "Escuadrías:")
-    print(f"El porcentaje de merma generada es {merma}%")
+    # print(len(rolls), "Escuadrías:")
+    # print(f"El porcentaje de merma generada es {merma}%")
 
-    for escuadria in rolls:
-        for trozo in escuadria:
-            if trozo in dic:
-                dic[trozo] += 1
-            else:
-                dic[trozo] = 1
+    # for escuadria in rolls:
+    #     for trozo in escuadria:
+    #         if trozo in dic:
+    #             dic[trozo] += 1
+    #         else:
+    #             dic[trozo] = 1
 
-    print(dic)
+    # print(dic)
     

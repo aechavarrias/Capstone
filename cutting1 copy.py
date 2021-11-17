@@ -484,6 +484,8 @@ def optimizar(restantes, largo, lista_mermas):
             # patron_elegido.append("m")
             # patron_elegido.append(merm-largo_patron)
             new_rolls.append(patron_elegido)
+        else:
+            new_lista_merma.append(merm)
     rolls, merma, lista_merma, cortes, t = solveCuttingStock(restantes, largo)
     print("optimizo 2.5")
     for patron in rolls:
@@ -517,57 +519,67 @@ def elegir_mejor(rolls): # Cambiar  (elegir el con menos merma) (elegir el con m
 
 if __name__ == "__main__":
 
-    escuadrias_utilizadas = 0
+    # escuadrias_utilizadas = 0
 
-    cortes_listos = {}
-    lista_mermas = []
+    # cortes_listos = {}
+    # lista_mermas = []
+    lista_escuadrias = []
+    # casas = 1
+    # largo = 320
+    for i in range(50):
+        escuadrias_utilizadas = 0
+        cortes_listos = {}
+        lista_mermas = []
+        # lista_escuadrias = []
+        casas = 1
+        largo = 320
+        s, dict_, q = CuttingStockExample1(casas)
+        rolls, merma, lista_merma, cortes, t = solveCuttingStock(s, largo)
+        # for escuadria in rolls:
+        #     largo_sin_merma = sum(escuadria)
+        #     merma_escuadria = largo - largo_sin_merma
+        #     escuadria.append(merma_escuadria)
+        # rolls2, lista_merma2 = optimizar(s, largo, lista_mermas = [])
+        '''
+        # rolls, porcentaje_perdida, lista_merma, cortes, t
 
-    casas = 1
-    largo = 320
+        # largo_maximo = 800
+        # porcentaje_merma, largo_elegido = mejor_largo(largo_maximo)
 
-    s, dict_, q = CuttingStockExample1(casas)
-    rolls, merma, lista_merma, cortes, t = solveCuttingStock(s, largo)
-    # for escuadria in rolls:
-    #     largo_sin_merma = sum(escuadria)
-    #     merma_escuadria = largo - largo_sin_merma
-    #     escuadria.append(merma_escuadria)
-    # rolls2, lista_merma2 = optimizar(s, largo, lista_mermas = [])
-    '''
-    # rolls, porcentaje_perdida, lista_merma, cortes, t
+        # print (len(rolls), "Escuadrías:")
+        '''
+        print(f"los rolls son los siguientes: {rolls}")
+        lista_mermas = ordenar_mermas(rolls, largo)
+        print(f"la lista es la siguiente: {lista_mermas}")
+        lista_ordenada = ordenar_patrones(rolls, casas, cortes_listos, dict_)
 
-    # largo_maximo = 800
-    # porcentaje_merma, largo_elegido = mejor_largo(largo_maximo)
+        '''
+        lista_patrones_por_casa = patrones_por_casa(lista_ordenada)
+        '''
 
-    # print (len(rolls), "Escuadrías:")
-    '''
-    print(f"los rolls son los siguientes: {rolls}")
-    lista_mermas = ordenar_mermas(rolls, largo)
-    print(f"la lista es la siguiente: {lista_mermas}")
-    lista_ordenada = ordenar_patrones(rolls, casas, cortes_listos, dict_)
+        # print(type(lista_ordenada[1][1]))
+        lista_completos = {}
+        lista_completos, lista_incompletos, escuadrias_utilizadas, lista_mermas = funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utilizadas, lista_completos)
 
-    '''
-    lista_patrones_por_casa = patrones_por_casa(lista_ordenada)
-    '''
+        # print(f"en total hay {escuadrias_utilizadas} escuadrias")
+        # print(f" la lista completos: {lista_completos} \n y la lista incompletos: {lista_incompletos} \n y la lista mermas {lista_mermas}")
 
-    # print(type(lista_ordenada[1][1]))
-    lista_completos = {}
-    lista_completos, lista_incompletos, escuadrias_utilizadas, lista_mermas = funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utilizadas, lista_completos)
+        total = 0
 
-    print(f"en total hay {escuadrias_utilizadas} escuadrias")
-    print(f" la lista completos: {lista_completos} \n y la lista incompletos: {lista_incompletos} \n y la lista mermas {lista_mermas}")
+        for key in lista_completos:
+            total += key * lista_completos[key]
+        
+        for merma in lista_mermas:
+            total += merma
+        escuadrias = total/320
+        lista_escuadrias.append(escuadrias)
+    print(lista_escuadrias)
+    promedio = sum(lista_escuadrias)/50
+    print(promedio)
+    # print(total)
+    # print(total/320)
 
-    total = 0
-
-    for key in lista_completos:
-        total += key * lista_completos[key]
-    
-    for merma in lista_mermas:
-        total += merma
-    
-    print(total)
-    print(total/320)
-
-    print(dict_)
+    # print(dict_)
     # print(f"el largo de la lista de trozos completos es {len(lista_completos)}, el de la lista de trozos incompletos es {len(lista_incompletos)} y su suma es {len(lista_completos) + len(lista_incompletos)}")
 
     # print(lista_incompletos)
