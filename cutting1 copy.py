@@ -187,9 +187,9 @@ def solveCuttingStock(s, B):
     rolls.sort()
     porcentaje_perdida = (total_merma/(B*len(rolls)))*100
 
-    print(lista_merma)
-    print(len(lista_merma))
-    print("estoy aca")
+    # print(lista_merma)
+    # print(len(lista_merma))
+    # print("estoy aca")
 
     return rolls, porcentaje_perdida, lista_merma, cortes, t
 
@@ -201,7 +201,8 @@ def CuttingStockExample1(casas):
     # w = [113.8, 5.08, 122.8, 22.35, 113.08, 53.56, 273.76, 305.12, 235, 65, 62, 131, 226.63, 152, 251, 246.5, 76.15, 56.92, 213.4, 135.2, 140.7, 48.12, 18, 259.61, 264.02, 5, 1, 36.5, 307.52, 108, 232.38, 221.1, 124.25, 47.69]
     # q = [49, 0, 0, 86, 18, 8, 51, 85, 2, 4, 1, 1, 124, 3, 15, 12, 8, 1, 1, 1, 3, 2, 2, 3, 5, 11, 0, 7, 7, 0, 0, 0, 8, 4] # quantitiy of orders
     
-    w = [113.8, 22.35, 113.08, 53.56, 273.76, 305.12, 235, 65, 62, 131, 226.63, 152, 251, 246.5, 76.15, 56.92, 213.4, 135.2, 140.7, 48.12, 18, 259.61, 264.02,  5, 36.5, 307.52, 124.25, 47.69]
+    # w = [113.8, 22.35, 113.08, 53.56, 273.76, 305.12, 235, 65, 62, 131, 226.63, 152, 251, 246.5, 76.15, 56.92, 213.4, 135.2, 140.7, 48.12, 18, 259.61, 264.02,  5, 36.5, 307.52, 124.25, 47.69]
+    w = [114, 22, 113, 54, 274, 305, 235, 65, 62, 131, 226, 152, 251, 247, 76, 57, 213, 135, 141, 48, 18, 260, 264,  5, 37, 308, 124, 48]
     q = [49   ,    86,     18,     8,     51,     85,   2,  4,  1,   1,    124,   3,  15,    12,     8,     1,     1,     1,     3,     2,  2,      3,      5, 11,    7,      7,      8,     4] # quantitiy of orders
   
     dict_ = {}
@@ -215,8 +216,9 @@ def CuttingStockExample1(casas):
             s.append(w[j])
 
     return s, dict_, q
-    
-w = [113.8, 22.35, 113.08, 53.56, 273.76, 305.12, 235, 65, 62, 131, 226.63, 152, 251, 246.5, 76.15, 56.92, 213.4, 135.2, 140.7, 48.12, 18, 259.61, 264.02,  5, 36.5, 307.52, 124.25, 47.69]
+
+w = [114, 22, 113, 54, 274, 305, 235, 65, 62, 131, 226, 152, 251, 247, 76, 57, 213, 135, 141, 48, 18, 260, 264,  5, 37, 308, 124, 48]
+# w = [113.8, 22.35, 113.08, 53.56, 273.76, 305.12, 235, 65, 62, 131, 226.63, 152, 251, 246.5, 76.15, 56.92, 213.4, 135.2, 140.7, 48.12, 18, 259.61, 264.02,  5, 36.5, 307.52, 124.25, 47.69]
 
 
 def cuenta_casas(casas_totales, cortes_listos, dict_, patrones_en_orden):
@@ -337,11 +339,11 @@ def funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utiliz
             if tipo == False:
                 # print(trozo)
                 lista_faltantes.append(float(trozo))
-    print(f"LA CANTIDAD TOTAL DE TROZOS ES: {len(lista_faltantes)}\n")
+    # print(f"LA CANTIDAD TOTAL DE TROZOS ES: {len(lista_faltantes)}\n")
     for escuadria in lista_ordenada:
 
         # if escuadria[-2] == "m":
-        print(escuadria)
+        # print(escuadria)
         # if sum(escuadria) == 320:
         #     print("CHECKPOINT 2")
         #     escuadrias_utilizadas += 1
@@ -361,15 +363,24 @@ def funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utiliz
         # if largo_escuadria == 0:
         #     print("CHECKPOINT 2")
         #     escuadrias_utilizadas += 1
-        largo_escuadria = largo
+        print(f"la suma de la escuadria es: {sum(escuadria)}")
+        print(f"la escuadria es {escuadria}")
+        print(f"el largo es {largo}")
+        if sum(escuadria) <= largo:
+            largo_escuadria = largo
+        else:
+            print("entre al else")
+            largo_escuadria = escuadria[-1] / largo
+            print(f"la merma es {merma}")
+            escuadria = escuadria[:-1]
 
         for trozo in escuadria:
             indicador = False
             if trozo > largo_escuadria:  #and (trozo - largo_escuadria) > 1
-                print(trozo, ">", largo_escuadria)
+                # print(trozo, ">", largo_escuadria)
                 lista_incompletos.append(trozo)
                 lista_mermas.append(largo_escuadria)
-                print("Me quede sin espacio en la escuadria")
+                # print("Me quede sin espacio en la escuadria")
                 continue
             probabilidad = random.random()
             # print(f"la probabilidad es {probabilidad}")
@@ -411,11 +422,11 @@ def funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utiliz
                 lista_mermas.sort()
                 
                 rolls, lista_mermas, lista_faltantes = optimizar(lista_faltantes, largo, lista_mermas)
-                print(f"AYUDAAAAAAAAAAAAA {lista_ordenada} \n {lista_completos}")
-                if "m" in lista_completos:
-                    print("estamos cagados")
+                # print(f"AYUDAAAAAAAAAAAAA {lista_ordenada} \n {lista_completos}")
+                # if "m" in lista_completos:
+                #     print("estamos cagados")
                 lista_ordenada = ordenar_patrones(rolls, casas, lista_completos, dict_)
-                print(f"AYUDAAAAAAAAAAAAA {lista_ordenada} \n {lista_completos}")
+                # print(f"AYUDAAAAAAAAAAAAA {lista_ordenada} \n {lista_completos}")
                 lista_completos, lista_incompletos, escuadrias_utilizadas, lista_mermas = funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utilizadas, lista_completos)
                 return lista_completos, lista_incompletos, escuadrias_utilizadas, lista_mermas
                 # for merma in lista_mermas:
@@ -453,7 +464,7 @@ def funcion(lista_ordenada, lista_mermas, largo, casas, dict_, escuadrias_utiliz
                     lista_completos[trozo] = 1
                 lista_mermas.append(2)
                 lista_mermas.sort()
-    print(f"EN LA LISTA FALTANTES HAY {len(lista_faltantes)} TROZOS")
+    # print(f"EN LA LISTA FALTANTES HAY {len(lista_faltantes)} TROZOS")
     return lista_completos, lista_incompletos, escuadrias_utilizadas, lista_mermas
 
 def optimizar(restantes, largo, lista_mermas):
@@ -483,11 +494,13 @@ def optimizar(restantes, largo, lista_mermas):
             new_lista_merma.append(merm-largo_patron)
             # patron_elegido.append("m")
             # patron_elegido.append(merm-largo_patron)
+            extra = merm * largo
+            patron_elegido.append(extra)
             new_rolls.append(patron_elegido)
         else:
             new_lista_merma.append(merm)
     rolls, merma, lista_merma, cortes, t = solveCuttingStock(restantes, largo)
-    print("optimizo 2.5")
+    # print("optimizo 2.5")
     for patron in rolls:
         # print(patron)
         new_rolls.append(patron)
@@ -510,7 +523,7 @@ def cortes_menores_a(lista_mermas, largo):
     return lista_return
 
 def elegir_mejor(rolls): # Cambiar  (elegir el con menos merma) (elegir el con menos cortes o cortes mas largos) (elegir el con menos cortes)
-    print(rolls)
+    # print(rolls)
     patron_elegido = [0]
     for patron in rolls:
         if len(patron) > len(patron_elegido):
@@ -526,7 +539,7 @@ if __name__ == "__main__":
     lista_escuadrias = []
     # casas = 1
     # largo = 320
-    for i in range(50):
+    for i in range(1):
         escuadrias_utilizadas = 0
         cortes_listos = {}
         lista_mermas = []
@@ -535,6 +548,7 @@ if __name__ == "__main__":
         largo = 320
         s, dict_, q = CuttingStockExample1(casas)
         rolls, merma, lista_merma, cortes, t = solveCuttingStock(s, largo)
+        print(rolls)
         # for escuadria in rolls:
         #     largo_sin_merma = sum(escuadria)
         #     merma_escuadria = largo - largo_sin_merma
@@ -548,9 +562,9 @@ if __name__ == "__main__":
 
         # print (len(rolls), "Escuadrías:")
         '''
-        print(f"los rolls son los siguientes: {rolls}")
+        # print(f"los rolls son los siguientes: {rolls}")
         lista_mermas = ordenar_mermas(rolls, largo)
-        print(f"la lista es la siguiente: {lista_mermas}")
+        # print(f"la lista es la siguiente: {lista_mermas}")
         lista_ordenada = ordenar_patrones(rolls, casas, cortes_listos, dict_)
 
         '''
@@ -574,8 +588,8 @@ if __name__ == "__main__":
         escuadrias = total/320
         lista_escuadrias.append(escuadrias)
     print(lista_escuadrias)
-    promedio = sum(lista_escuadrias)/50
-    print(promedio)
+    # promedio = sum(lista_escuadrias)/50
+    # print(promedio)
     # print(total)
     # print(total/320)
 
