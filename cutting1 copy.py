@@ -48,6 +48,7 @@ LOG = True
 EPS = 1.e-6
 
 
+random.seed(202111)
 
 def solveCuttingStock(s, B):
     """solveCuttingStock.

@@ -204,7 +204,7 @@ def cuenta_casas(lista):
 def elegir_patron():
     pass
 
-def desrelajar(s, B, escuadrias, new_rolls):
+def desrelajar(s, B, escuadrias, new_rolls, merma_):
     # escuadrias = 0
     rolls, merma = solveCuttingStock(s,B)
     patron = rolls.pop(0)
@@ -216,7 +216,8 @@ def desrelajar(s, B, escuadrias, new_rolls):
             else:
                 new_rolls[trozo] = 1
         else:
-            escuadrias, new_rolls = desrelajar(s,B,escuadrias, new_rolls)
+            escuadrias, new_rolls, merma = desrelajar(s,B,escuadrias, new_rolls, merma_)
+    merma_ += merma
     escuadrias += 1
     while s:
         rolls, merma = solveCuttingStock(s,B)
@@ -231,9 +232,10 @@ def desrelajar(s, B, escuadrias, new_rolls):
                 else:
                     new_rolls[trozo] = 1
             else:
-                escuadrias, new_rolls = desrelajar(s,B,escuadrias, new_rolls)
+                escuadrias, new_rolls, merma = desrelajar(s,B,escuadrias, new_rolls, merma_)
+        merma_ += merma
         escuadrias += 1
-    return escuadrias, new_rolls
+    return escuadrias, new_rolls, merma_
 
 
 if __name__ == "__main__":
@@ -244,12 +246,15 @@ if __name__ == "__main__":
 
     new_rolls = {}
     escuadrias = 0
+    merma = 0
 
     s,B = CuttingStockExample1(casas)
-    escuadrias, new_rolls = desrelajar(s,B, escuadrias, new_rolls)
+    escuadrias, new_rolls, merma = desrelajar(s,B, escuadrias, new_rolls, merma)
     print(f"las escuadrias son: {escuadrias}")
 
     print(f"el diccionario es: {new_rolls}")
+
+    print(f'merma: {merma}, que es el {(merma/(320*escuadrias))*100}%')
     # print("\n\n\nCutting stock problem:")
     # rolls, merma = solveCuttingStock(s,B)
     # largo_total = rolls * B

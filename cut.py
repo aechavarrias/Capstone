@@ -494,18 +494,16 @@ def drawGraph(consumed_big_rolls, child_rolls, parent_width):
 
 if __name__ == '__main__':
 
-  # child_rolls = [
-  #    [quantity, width],
-  # ]
+  child_rolls = [[49, 113.8], [86, 22.35], [18, 113.08], [8, 53.56], [51, 273.76], [85, 305.12], [2, 235], [4, 65], [1, 62], [1, 131], [124, 226.63], [3, 152], [15, 251], [12, 246.5], [8, 76.15], [1, 56.92], [1, 213.4], [1, 135.2], [3, 140.7], [2, 48.12], [2, 18], [3, 259.61], [5, 264.02], [11, 5], [7, 36.5], [7, 307.52], [8, 124.25], [4, 47.69]]
   app = typer.Typer()
 
 
   def main(infile_name: Optional[str] = typer.Argument(None)):
 
-    if infile_name:
-      child_rolls = get_data(infile_name)
-    else:
-      child_rolls = gen_data(3)
+    #if infile_name:
+    #  child_rolls = get_data(infile_name)
+    #else:
+    #  child_rolls = gen_data(3)
     parent_rolls = [[10, 320]] # 10 doesn't matter, itls not used at the moment
 
     consumed_big_rolls = StockCutter1D(child_rolls, parent_rolls, output_json=False, large_model=False)
